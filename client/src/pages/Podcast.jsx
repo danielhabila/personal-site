@@ -6,7 +6,7 @@ import Header from "../partials/Header";
 import Talks from "../partials/Talks";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
 import Footer from "../partials/Footer";
-import Podcasts from "../partials/Podcasts";
+import PodcastsList from "../partials/PodcastsList";
 import Subscribe from "../partials/Subscribe";
 
 function Home() {
@@ -30,7 +30,7 @@ function Home() {
                 <div className="max-w-[700px]">
                   <div className="space-y-10">
                     {/* <ArticlesList /> */}
-                    <Podcasts />
+                    <PodcastsList />
                     <Subscribe />
                     <Talks />
                   </div>

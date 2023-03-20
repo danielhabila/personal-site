@@ -89,23 +89,27 @@ function ArticlesList() {
 
   return (
     <section>
-      <h2 className="font-aspekta text-xl font-[650] mb-3">Latest Articles</h2>
+      <div className="max-w-6xl mx-auto py-12 md:py-20">
+        <h2 className="font-aspekta text-xl md:text-4xl font-[650] mb-3">
+          Latest Articles
+        </h2>
 
-      {/* Articles list */}
-      <div>
-        {items.map((item) => {
-          return (
-            <ArticleItem
-              key={item.id}
-              id={item.id}
-              title={item.title}
-              slug={item.slug}
-              image={item.image}
-              date={item.date}
-              excerpt={item.excerpt}
-            />
-          );
-        })}
+        {/* Articles list */}
+        <div>
+          {items.map((item) => {
+            return (
+              <ArticleItem
+                key={item.id}
+                id={item.id}
+                title={item.title}
+                slug={item.slug}
+                image={item.image}
+                date={item.date}
+                excerpt={item.excerpt}
+              />
+            );
+          })}
+        </div>
       </div>
     </section>
   );

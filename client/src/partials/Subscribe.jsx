@@ -134,10 +134,10 @@ function Subscribe() {
                     Spotify
                   </button>
                   <button className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm m-1.5">
-                    Google Podcasts
+                    YouTube
                   </button>
                   <button className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm m-1.5">
-                    Overcast
+                    Google Podcasts
                   </button>
                   <button className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm m-1.5">
                     Amazon Music
@@ -147,6 +147,9 @@ function Subscribe() {
                   </button>
                   <button className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm m-1.5">
                     Castro
+                  </button>
+                  <button className="btn text-white bg-blue-500 hover:bg-blue-600 group shadow-sm m-1.5">
+                    Overcast
                   </button>
                 </div>
                 {/* Subscribe */}

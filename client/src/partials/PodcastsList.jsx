@@ -11,7 +11,7 @@ import PodcastImg06 from "../images/podcast-06.jpg";
 import PodcastImg07 from "../images/podcast-07.jpg";
 import PodcastImg08 from "../images/podcast-08.jpg";
 
-function Podcasts() {
+function PodcastsList() {
   const [category, setCategory] = useState("All");
 
   const items = [
@@ -107,34 +107,32 @@ function Podcasts() {
 
   return (
     <section>
-      <div className="max-w-6xl mx-auto ">
-        <div className="py-12 md:py-20">
-          <h2 className="font-aspekta text-xl font-[650] mb-3">
-            Latest Articles
-          </h2>
-          {/* Podcasts */}
-          <div>
-            {items.map((item) => {
-              return (
-                <PodcastItem
-                  key={item.id}
-                  id={item.id}
-                  image={item.image}
-                  title={item.title}
-                  slug={item.slug}
-                  date={item.date}
-                  episode={item.episode}
-                  category={item.category}
-                  excerpt={item.excerpt}
-                  selectedCategory={category}
-                />
-              );
-            })}
-          </div>
+      <div className="max-w-6xl mx-auto py-12 md:py-20">
+        <h2 className="font-aspekta text-xl md:text-4xl font-[650] mb-3">
+          Latest Podcasts
+        </h2>
+        {/* Podcasts */}
+        <div>
+          {items.map((item) => {
+            return (
+              <PodcastItem
+                key={item.id}
+                id={item.id}
+                image={item.image}
+                title={item.title}
+                slug={item.slug}
+                date={item.date}
+                episode={item.episode}
+                category={item.category}
+                excerpt={item.excerpt}
+                selectedCategory={category}
+              />
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-export default Podcasts;
+export default PodcastsList;
