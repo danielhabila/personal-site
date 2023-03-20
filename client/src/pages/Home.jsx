@@ -5,11 +5,7 @@ import BottomNavigation from "../partials/BottomNavigation";
 import Header from "../partials/Header";
 import Hero from "../partials/Hero";
 import ArticlesList from "../partials/ArticlesList";
-import Talks from "../partials/Talks";
-import Projects from "../partials/Projects";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
-import WidgetSponsor from "../partials/WidgetSponsor";
-import WidgetBook from "../partials/WidgetBook";
 import Footer from "../partials/Footer";
 
 function Home() {
@@ -35,7 +31,6 @@ function Home() {
                 <div className="max-w-[700px]">
                   <div className="space-y-10">
                     <ArticlesList />
-                    <Talks />
                   </div>
                 </div>
               </div>

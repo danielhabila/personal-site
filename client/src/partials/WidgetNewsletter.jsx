@@ -14,7 +14,7 @@ function WidgetNewsletter() {
           Never miss an update!
         </div>
         <p className="text-sm text-slate-500 dark:text-slate-400">
-          Subscribe and join 100K+ developers.
+          Subscribe now, it's a win win.
         </p>
       </div>
       <form>
