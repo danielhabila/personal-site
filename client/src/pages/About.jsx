@@ -5,7 +5,6 @@ import Header from "../partials/Header";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
 import Footer from "../partials/Footer";
 import image from "../images/my-avatar.jpg";
-import AboutImg from "../images/about.png";
 import BottomNavigation from "../partials/BottomNavigation";
 
 function About() {
@@ -25,13 +24,15 @@ function About() {
             <Header />
 
             {/* Content */}
-            <div className="grow md:flex space-y-8 md:space-y-0 md:space-x-8 pt-12 md:pt-16 pb-16 md:pb-20">
+            <div className="grow md:flex space-y-8 md:space-y-0 md:space-x-8 py-12 md:py-20">
               {/* Middle area */}
               <div className="grow">
                 <div className="max-w-[700px]">
                   <section>
                     {/* Page title */}
-                    <h1 className="h1 font-aspekta mb-5">Hey! I'm Daniel 👋🏾</h1>
+                    <h1 className="h1 max-md:text-center font-aspekta mb-5">
+                      Hey! I'm Daniel 👋🏾
+                    </h1>
                     <img
                       className="w-80 rounded-full mb-10 max-md:mx-auto"
                       src={image}

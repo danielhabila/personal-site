@@ -3,14 +3,13 @@ import React from "react";
 import SideNavigation from "../partials/SideNavigation";
 import BottomNavigation from "../partials/BottomNavigation";
 import Header from "../partials/Header";
-import Hero from "../partials/Hero";
 import ArticlesList from "../partials/ArticlesList";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
 import Footer from "../partials/Footer";
 
-function Home() {
+function Blog() {
   return (
-    <div className="max-w-7xl mx-auto">
+    <div className="max-w-7xl mx-auto ">
       <div className="min-h-screen flex">
         <div className="hidden sm:block">
           <SideNavigation />
@@ -24,21 +23,15 @@ function Home() {
             <Header />
 
             {/* Content */}
-            <div className="grow md:flex space-y-8 md:space-y-0 md:space-x-8 pb-16 md:pb-20">
+            <div className=" md:flex pb-16 md:pb-20 justify-between py-12 md:py-20">
               {/* Middle area */}
-              <div className="grow">
-                <div className="max-w-[700px]">
-                  <div className="space-y-10">
-                    <ArticlesList />
-                  </div>
-                </div>
+              <div className="grow max-w-[700px]">
+                <ArticlesList />
               </div>
 
               {/* Right sidebar */}
               <aside className="md:w-[240px] lg:w-[300px] shrink-0">
-                <div className="space-y-6">
-                  <WidgetNewsletter />
-                </div>
+                <WidgetNewsletter />
               </aside>
             </div>
 
@@ -50,4 +43,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default Blog;

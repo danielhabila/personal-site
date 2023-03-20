@@ -3,7 +3,7 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import "./css/style.css";
 
-import Home from "./pages/Home";
+import Blog from "./pages/Blog";
 import Post from "./pages/Post";
 import About from "./pages/About";
 import Podcast from "./pages/Podcast";
@@ -20,10 +20,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route exact path="/" element={<Home />} />
+        <Route exact path="/" element={<About />} />
+        <Route path="/articles" element={<Blog />} />
         <Route path="/post" element={<Post />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/podcast" element={<Podcast />} />
+        <Route path="/podcasts" element={<Podcast />} />
       </Routes>
     </>
   );

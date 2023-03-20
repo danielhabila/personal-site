@@ -89,8 +89,8 @@ function ArticlesList() {
 
   return (
     <section>
-      <div className="max-w-6xl mx-auto py-12 md:py-20">
-        <h2 className="font-aspekta text-xl md:text-4xl font-[650] mb-3">
+      <div className="max-w-6xl mx-auto">
+        <h2 className="font-aspekta text-2xl md:text-4xl font-[650] mb-3">
           Latest Articles
         </h2>
 
