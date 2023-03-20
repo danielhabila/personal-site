@@ -12,7 +12,7 @@ function Subscribe() {
 
   return (
     <section>
-      <div className="max-w-6xl mx-auto px-4 sm:px-6">
+      <div className=" mx-auto px-4 sm:px-6">
         <div className="pt-16 md:pt-40">
           <div className="relative">
             {/* Background */}

@@ -1,11 +1,5 @@
 import React from "react";
 
-import Avatar01 from "../images/avatar-01.jpg";
-import Avatar02 from "../images/avatar-02.jpg";
-import Avatar03 from "../images/avatar-03.jpg";
-import Avatar04 from "../images/avatar-04.jpg";
-import Avatar05 from "../images/avatar-05.jpg";
-
 function WidgetNewsletter() {
   return (
     <div className="rounded-lg border border-slate-200 dark:border-slate-800 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-800/30 odd:rotate-1 even:-rotate-1 p-5">

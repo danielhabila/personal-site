@@ -3,7 +3,7 @@ import React from "react";
 import SideNavigation from "../partials/SideNavigation";
 import BottomNavigation from "../partials/BottomNavigation";
 import Header from "../partials/Header";
-import Talks from "../partials/Talks";
+import WidgetSubscribe from "../partials/WidgetSubscribe";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
 import Footer from "../partials/Footer";
 import PodcastsList from "../partials/PodcastsList";
@@ -29,13 +29,13 @@ function Home() {
                 <div className="space-y-10">
                   {/* <ArticlesList /> */}
                   <PodcastsList />
-                  <Subscribe />
                 </div>
               </div>
 
               {/* Right sidebar */}
-              <aside className="md:w-[240px] lg:w-[300px] shrink-0">
+              <aside className="md:w-[240px] lg:w-[300px] shrink-0 space-y-8">
                 <WidgetNewsletter />
+                <WidgetSubscribe />
               </aside>
             </div>
 

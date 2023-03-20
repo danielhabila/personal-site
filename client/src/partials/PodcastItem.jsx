@@ -1,11 +1,15 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Play from "../images/play-02.svg";
 
 function PodcastItem(props) {
+  const navigate = useNavigate();
   return (
-    <div className="sm:flex items-center p-5 border-b border-slate-100 dark:border-slate-800 hover:bg-gray-500/20 cursor-pointer hover:rounded-lg">
+    <div
+      className="sm:flex items-center p-5 border-b border-slate-100 dark:border-slate-800 hover:bg-gray-500/20 cursor-pointer hover:rounded-lg"
+      onClick={() => navigate(props.slug)}
+    >
       <div className="flex items-start mb-4 sm:mb-0">
         <img
           className="rounded w-16 h-16 sm:w-[88px] sm:h-[88px] object-cover mr-6"
@@ -16,12 +20,7 @@ function PodcastItem(props) {
         />
         <div>
           <h3 className="font-hkgrotesk font-extrabold text-lg mb-1">
-            <Link
-              className="hover:text-blue-500 transition duration-150 ease-in-out"
-              to={props.slug}
-            >
-              {props.title}
-            </Link>
+            {props.title}
           </h3>
           <div className="font-hkgrotesk font-medium text-xs text-slate-500 mb-1">
             {props.date} <span className="text-slate-300">·</span> Episode{" "}

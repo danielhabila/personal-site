@@ -3,9 +3,10 @@ import { Routes, Route, useLocation } from "react-router-dom";
 
 import "./css/style.css";
 
-import Blog from "./pages/Blog";
-import Post from "./pages/Post";
+import Blog from "./pages/BlogHome";
+import Post from "./pages/BlogPost";
 import About from "./pages/About";
+import PodPlayer from "./pages/PodPlayer";
 import Podcast from "./pages/Podcast";
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Routes>
         <Route exact path="/" element={<About />} />
         <Route path="/articles" element={<Blog />} />
+        <Route path="/podplayer" element={<PodPlayer />} />
         <Route path="/post" element={<Post />} />
         <Route path="/podcasts" element={<Podcast />} />
       </Routes>
