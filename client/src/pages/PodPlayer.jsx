@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import SideNavigation from "../partials/SideNavigation";
 import Header from "../partials/Header";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
+import WidgetSubscribe from "../partials/WidgetSubscribe";
 import Footer from "../partials/Footer";
 import BottomNavigation from "../partials/BottomNavigation";
 import AudioPlayer from "../partials/AudioPlayer";
@@ -171,6 +172,7 @@ function PodPlayer() {
               <aside className="md:w-[240px] lg:w-[300px] shrink-0">
                 <div className="space-y-6">
                   <WidgetNewsletter />
+                  <WidgetSubscribe />
                 </div>
               </aside>
             </div>
