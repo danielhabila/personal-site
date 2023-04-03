@@ -35,7 +35,7 @@ function Post() {
                   <div className="mb-3">
                     <Link
                       className="inline-flex text-sky-500 rounded-full border border-slate-200 dark:border-slate-800 dark:bg-gradient-to-t dark:from-slate-800 dark:to-slate-800/30"
-                      to="/"
+                      to="/articles"
                     >
                       <span className="sr-only">Back</span>
                       <svg

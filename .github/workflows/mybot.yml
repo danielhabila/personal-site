@@ -21,7 +21,9 @@ jobs:
           cache: "npm"
           cache-dependency-path: |
             client/package-lock.json
-          # server/package-lock.json
+            client/node_modules
+            client/package.json
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
 
       - name: Install client dependencies
         run: |

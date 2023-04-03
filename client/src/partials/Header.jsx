@@ -26,7 +26,7 @@ function Header() {
     <header>
       <div className="flex items-center justify-between h-16 before:block">
         {/*Logo image*/}
-        <div className="flex justify-center my-4">
+        <div className="flex justify-center my-4 max-sm:mr-6">
           <NavLink to="/">
             <img
               className="rounded-full"
@@ -45,7 +45,7 @@ function Header() {
                 <label className="block text-sm sr-only" htmlFor="search">
                   Search
                 </label>
-                <div className="relative flex items-center">
+                <div className="relative flex items-center space">
                   <input
                     id="search"
                     type="search"
