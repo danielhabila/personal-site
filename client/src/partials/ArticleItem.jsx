@@ -1,8 +1,43 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { request, gql } from "graphql-request";
 
 function ArticleItem(props) {
   const navigate = useNavigate();
+  const [posts, setPosts] = useState("");
+
+  const graphqlAPI = import.meta.env.VITE_APP_HYGRAPH_ENDPOINT;
+  const getPost = async () => {
+    try {
+      const query = gql`
+        query Posts {
+          posts {
+            id
+            postDate
+            slug
+            title
+            content {
+              html
+            }
+            coverPhoto {
+              url
+            }
+          }
+        }
+      `;
+      // Making request
+      const results = await request(graphqlAPI, query);
+      setPosts(results.posts);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getPost();
+  }, []);
+  useEffect(() => {
+    console.log(posts);
+  }, [posts]);
 
   return (
     <article

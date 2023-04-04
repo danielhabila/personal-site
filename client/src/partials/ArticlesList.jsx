@@ -1,4 +1,5 @@
 import React from "react";
+import { request, gql } from "graphql-request";
 
 import ArticleItem from "../partials/ArticleItem";
 
