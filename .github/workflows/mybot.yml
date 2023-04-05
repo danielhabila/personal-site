@@ -25,6 +25,11 @@ jobs:
             client/package.json
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
 
+      - name: Create env file
+        run: |
+          cd client
+          echo VITE_APP_HYGRAPH_ENDPOINT=${{ secrets.VITE_APP_HYGRAPH_ENDPOINT }} >> .env
+
       - name: Install client dependencies
         run: |
           cd client
