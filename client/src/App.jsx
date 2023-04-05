@@ -23,8 +23,9 @@ function App() {
       <Routes>
         <Route exact path="/" element={<About />} />
         <Route path="/articles" element={<Blog />} />
+        <Route path="/articles/:slug" element={<Post />} />
         <Route path="/podplayer" element={<PodPlayer />} />
-        <Route path="/post" element={<Post />} />
+        {/* <Route path="/post" element={<Post />} /> */}
         <Route path="/podcasts" element={<Podcast />} />
       </Routes>
     </>

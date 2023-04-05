@@ -1,6 +1,6 @@
-import React from "react";
-import { Link } from "react-router-dom";
-
+import React, { useState, useEffect } from "react";
+import { Link, useParams } from "react-router-dom";
+import { request, gql } from "graphql-request";
 import SideNavigation from "../partials/SideNavigation";
 import Header from "../partials/Header";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
@@ -8,9 +8,65 @@ import WidgetSponsor from "../partials/WidgetSponsor";
 import WidgetPosts from "../partials/WidgetPosts";
 import Footer from "../partials/Footer";
 import BottomNavigation from "../partials/BottomNavigation";
-import PostImg from "../images/post-image.jpg";
+
+import parse from "html-react-parser";
 
 function Post() {
+  const { slug } = useParams();
+  console.log(slug);
+
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  const graphqlAPI = import.meta.env.VITE_APP_HYGRAPH_ENDPOINT;
+
+  useEffect(() => {
+    const getPost = async (slug) => {
+      try {
+        setLoading(true);
+        const query = gql`
+          query BlogPosts($slug: String!) {
+            posts(where: { slug: $slug }) {
+              id
+              postDate
+              slug
+              title
+              content {
+                html
+              }
+              coverPhoto {
+                url
+              }
+            }
+          }
+        `;
+        // Making request
+        const variables = { slug };
+        const results = await request(graphqlAPI, query, variables);
+        setData(results.posts[0]);
+        console.log(results.posts[0].content.html);
+      } catch (error) {
+        setError(error);
+      }
+      setLoading(false);
+    };
+
+    getPost(slug);
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
+
+  if (!data) {
+    return null;
+  }
+
   return (
     <div className="max-w-7xl mx-auto">
       <div className="min-h-screen flex">
@@ -113,255 +169,23 @@ function Post() {
                         </ul>
                       </div>
                       <h1 className="h1 font-aspekta mb-4">
-                        How to Control CSS Animations with JavaScript
+                        {data && data.title}
                       </h1>
                     </header>
                     {/* Post content */}
-                    <div className="text-slate-500 dark:text-slate-400 space-y-8">
-                      <p>
-                        When it comes to animations on the web, developers need
-                        to measure the animation's requirements with the right
-                        technology -- CSS or JavaScript.
-                      </p>
-                      <img
-                        className="w-full"
-                        src={PostImg}
-                        width="692"
-                        height="390"
-                        alt="Post"
-                      />
-                      <div className="space-y-4">
-                        <p>
-                          Web designers sometimes believe that animating in CSS
-                          is more difficult than animating in JavaScript.{" "}
-                          <strong className="font-medium text-slate-800 dark:text-slate-100">
-                            While CSS animation does have some limitations
-                          </strong>
-                          , most of the time it's more capable than we give it
-                          credit for! Not to mention, typically more performant.
-                        </p>
-                        <p>
-                          Coupled with a touch of JavaScript, CSS animations and
-                          transitions are able to accomplish
-                          hardware-accelerated animations and interactions more
-                          efficiently than most JavaScript libraries. Let's jump
-                          straight in!
-                        </p>
-                        <p>Let's jump straight in!</p>
-                      </div>
-                      <div className="space-y-4">
-                        <h2 className="h2 font-aspekta text-slate-800 dark:text-slate-100">
-                          Manipulating CSS Transitions
-                        </h2>
-                        <p>
-                          There are countless questions on coding forums related
-                          to triggering and pausing an element's transition. The
-                          solution is actually quite simple using JavaScript.
-                        </p>
-                        <p>
-                          To trigger an element's transition, toggle a class
-                          name on that element that triggers it.
-                        </p>
-                        <p>
-                          To pause an element's transition, use getComputedStyle
-                          and getPropertyValue at the point in the transition
-                          you want to pause it.{" "}
-                          <a
-                            className="font-medium text-sky-500 hover:underline"
-                            href="#0"
-                          >
-                            Then set those CSS properties
-                          </a>{" "}
-                          of that element equal to those values you just got.
-                        </p>
-                      </div>
-                      <div className="space-y-4">
-                        <h2 className="h2 font-aspekta text-slate-800 dark:text-slate-100">
-                          Using CSS “Callback Functions”
-                        </h2>
-                        <p>
-                          Some of the most useful yet little-known JavaScript
-                          tricks for manipulating CSS transitions and animations
-                          are the DOM events they fire. Like:{" "}
-                          <strong className="font-medium text-slate-800 dark:text-slate-100">
-                            animationend, animationstart, and animationiteration
-                            for animations
-                          </strong>{" "}
-                          and transitionend for transitions. You might guess
-                          what they do. These animation events fire when the
-                          animation on an element ends, starts, or completes one
-                          iteration, respectively.
-                        </p>
-                        <p>
-                          These events need to be vendor prefixed at this time,
-                          so in this demo, we use a function developed by Craig
-                          Buckler called PrefixedEvent, which has the parameters
-                          element, type, and callback to help make these events
-                          cross-browser. Here is his useful article on capturing
-                          CSS animations with JavaScript. And{" "}
-                          <a
-                            className="font-medium text-sky-500 hover:underline"
-                            href="#0"
-                          >
-                            here is another one
-                          </a>{" "}
-                          determining which animation (name) the event is firing
-                          for.
-                        </p>
-                      </div>
-                      <div className="space-y-4">
-                        <h2 className="h2 font-aspekta text-slate-800 dark:text-slate-100">
-                          Manipulating CSS Transitions
-                        </h2>
-                        <p>
-                          Like we just learned, we can watch elements and react
-                          to animation-related events: animationStart,
-                          animationIteration, and animationEnd. But what happens
-                          if you want to change the CSS animation mid-animation?
-                          This requires a bit of trickery!
-                        </p>
-                      </div>
-                      <div className="space-y-4">
-                        <h3 className="h3 font-aspekta text-slate-800 dark:text-slate-100">
-                          The animation-play-state Property
-                        </h3>
-                        <p>
-                          The animation-play-state property of CSS is incredibly
-                          helpful when you simply need to pause an animation and
-                          potentially continue it later. You can change that CSS
-                          through JavaScript like this (mind your prefixes):
-                        </p>
-                      </div>
-                      <pre className="overflow-x-auto text-sm text-slate-500 bg-slate-800 p-4 rounded leading-tight">
-                        <code className="font-pt-mono">
-                          <span className="text-sky-300">element</span>.
-                          <span className="text-sky-300">style</span>.
-                          <span className="text-sky-300">
-                            webkitAnimationPlayState
-                          </span>{" "}
-                          <span className="text-fuchsia-400">=</span>{" "}
-                          <span className="text-emerald-400">"paused"</span>;
-                          {"\n\n"}
-                          <span className="text-sky-300">element</span>.
-                          <span className="text-sky-300">style</span>.
-                          <span className="text-sky-300">
-                            webkitAnimationPlayState
-                          </span>{" "}
-                          <span className="text-fuchsia-400">=</span>{" "}
-                          <span className="text-emerald-400">"running"</span>;
-                        </code>
-                      </pre>
-                      <div className="space-y-4">
-                        <h3 className="h3 font-aspekta text-slate-800 dark:text-slate-100">
-                          Obtaining the Current Keyvalue Percentage
-                        </h3>
-                        <p>
-                          Unfortunately, at this time, there is no way to get
-                          the exact current “percentage completed” of a CSS
-                          keyframe animation.{" "}
-                          <strong className="font-medium text-slate-800 dark:text-slate-100">
-                            The best method to approximate it is using a
-                            setInterval function
-                          </strong>{" "}
-                          that iterates 100 times during the animation, which is
-                          essentially: the animation duration in ms / 100. For
-                          example, if the animation is 4 seconds long, then the
-                          setInterval needs to run every 40 milliseconds
-                          (4000/100).
-                        </p>
-                      </div>
-                      <pre className="overflow-x-auto text-sm text-slate-500 bg-slate-800 p-4 rounded leading-tight">
-                        <code className="font-pt-mono">
-                          <span className="text-sky-300">var showPercent</span>{" "}
-                          <span className="text-fuchsia-400">=</span>{" "}
-                          <span className="text-sky-300">window</span>.
-                          <span className="text-sky-300">setInterval</span>
-                          {"("}
-                          <span className="text-emerald-400">function</span>
-                          {"() {"}
-                          {"\n\n"}
-                          {"  "}
-                          <span className="text-emerald-400">if</span> {"("}
-                          <span className="text-sky-300">
-                            currentPercent
-                          </span>{" "}
-                          <span className="text-fuchsia-400">&lt;</span>{" "}
-                          <span className="text-pink-400">100</span>
-                          {") {"}
-                          {"\n\n"}
-                          {"    "}
-                          <span className="text-sky-300">
-                            currentPercent
-                          </span>{" "}
-                          <span className="text-fuchsia-400">{"+="}</span>{" "}
-                          <span className="text-pink-400">1</span>;{"\n\n"}
-                          {"  }"} <span className="text-emerald-400">else</span>{" "}
-                          {"{"}
-                          {"\n\n"}
-                          {"    "}
-                          <span className="text-sky-300">
-                            currentPercent
-                          </span>{" "}
-                          <span className="text-fuchsia-400">{"="}</span>{" "}
-                          <span className="text-pink-400">0</span>;{"\n\n"}
-                          {"  }"}
-                          {"\n\n"}
-                          {"  "}// Updates a div that displays the current
-                          percent{"\n\n"}
-                          {"  "}
-                          <span className="text-sky-300">result</span>.
-                          <span className="text-sky-300">innerHTML</span>{" "}
-                          <span className="text-fuchsia-400">=</span>{" "}
-                          <span className="text-sky-300">currentPercent</span>;
-                          {"\n\n"}
-                          {"}"}, <span className="text-fuchsia-400">40</span>
-                          {")"};
-                        </code>
-                      </pre>
-                      <div className="space-y-4">
-                        <h2 className="h2 font-aspekta text-slate-800 dark:text-slate-100">
-                          Use Your Head
-                        </h2>
-                        <p>
-                          Before starting to code, thinking about and planning
-                          how a transition or animation should run is the best
-                          way to minimize your problems and get the effect you
-                          desire. Even better than Googling for solutions later!
-                          The techniques and tricks overviewed in this article
-                          may not always be the best way to create the animation
-                          your project calls for.
-                        </p>
-                        <p>
-                          Here's a little example of{" "}
-                          <strong className="font-medium text-slate-800 dark:text-slate-100">
-                            where getting clever with HTML and CSS
-                          </strong>{" "}
-                          alone can solve a problem where you might have thought
-                          to go to JavaScript.
-                        </p>
-                      </div>
-                      <div className="space-y-4">
-                        <h2 className="h2 font-aspekta text-slate-800 dark:text-slate-100">
-                          In Conclusion
-                        </h2>
-                        <ul className="list-disc list-inside space-y-2">
-                          <li>
-                            Developers used to need to choose between CSS and
-                            JavaScript.
-                          </li>
-                          <li>
-                            In JavaScript, CSS transitions are generally easier
-                            to work with than CSS animations.
-                          </li>
-                          <li>
-                            CSS Matrices are generally a pain to deal with,
-                            especially for beginners.
-                          </li>
-                          <li>
-                            Thinking about what should be done and planning how
-                            to do it.
-                          </li>
-                        </ul>
+                    <div>
+                      {/* {data && (
+                        <div>
+                          <img src={data.coverPhoto.url} alt={data.title} />
+                          <div
+                            dangerouslySetInnerHTML={{
+                              __html: data && data.content.html,
+                            }}
+                          />
+                        </div>
+                      )} */}
+                      <div className="content ">
+                        {data && parse(data.content.html)}
                       </div>
                     </div>
                   </article>
@@ -372,8 +196,8 @@ function Post() {
               <aside className="md:w-[240px] lg:w-[300px] shrink-0">
                 <div className="space-y-6">
                   <WidgetNewsletter />
-                  <WidgetSponsor />
-                  <WidgetPosts />
+                  {/* <WidgetSponsor />
+                  <WidgetPosts /> */}
                 </div>
               </aside>
             </div>

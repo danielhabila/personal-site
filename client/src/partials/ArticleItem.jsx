@@ -1,43 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { request, gql } from "graphql-request";
+import { useNavigate } from "react-router-dom";
+import fetchBlogs from "../hooks/fetchBlogs";
 
 function ArticleItem(props) {
   const navigate = useNavigate();
-  const [posts, setPosts] = useState("");
+  const { data, loading, error } = fetchBlogs();
 
-  const graphqlAPI = import.meta.env.VITE_APP_HYGRAPH_ENDPOINT;
-  const getPost = async () => {
-    try {
-      const query = gql`
-        query Posts {
-          posts {
-            id
-            postDate
-            slug
-            title
-            content {
-              html
-            }
-            coverPhoto {
-              url
-            }
-          }
-        }
-      `;
-      // Making request
-      const results = await request(graphqlAPI, query);
-      setPosts(results.posts);
-    } catch (error) {
-      console.log(error);
+  const fetched = props.excerpt.__html.html;
+  const excerpt = fetched.split(" ").slice(0, 30).join(" ") + " ...";
+
+  // useEffect(() => {
+  //   console.log(props.excerpt.__html.html);
+  // }, [props]);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data);
     }
-  };
-  useEffect(() => {
-    getPost();
-  }, []);
-  useEffect(() => {
-    console.log(posts);
-  }, [posts]);
+  }, [data]);
 
   return (
     <article
@@ -57,12 +37,13 @@ function ArticleItem(props) {
             {props.title}
           </h3>
           <div className="flex">
-            <div className="grow text-sm text-slate-500 dark:text-slate-400">
-              {props.excerpt}
-            </div>
+            <div
+              className="grow text-sm text-slate-500 dark:text-slate-400"
+              dangerouslySetInnerHTML={{ __html: excerpt }}
+            ></div>
           </div>
-          <div className="text-xs text-slate-500 mb-1">
-            <span className="text-sky-500">—</span> {props.date}
+          <div className="text-[0.7rem] text-slate-500 my-1">
+            <span className="text-sky-500">—</span> {props.postDate}
           </div>
         </div>
       </div>
