@@ -20,18 +20,33 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
           cache-dependency-path: |
-            client/package-lock.json
             client/node_modules
+            server/node_modules
+            client/package-lock.json
+            server/package-lock.json
             client/package.json
+            server/package.json
           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}-${{ hashFiles('**/package.json') }}
 
       - name: Create env file
         run: |
-          cd client
-          echo VITE_APP_HYGRAPH_ENDPOINT=${{ secrets.VITE_APP_HYGRAPH_ENDPOINT }} >> .env
+          cd server
+          echo HYGRAPH_ENDPOINT=${{ secrets.HYGRAPH_ENDPOINT }} >> .env
+          echo YOUTUBE_APIKEY=${{ secrets.YOUTUBE_APIKEY }} >> .env
+          echo YOUTUBE_API_URL=${{ secrets.YOUTUBE_API_URL }} >> .env
 
       - name: Install client dependencies
         run: |
           cd client
           npm install
           npm run build
+
+      - name: Install server dependencies
+        run: |
+          cd server
+          npm install
+
+      # - name: Restart pm2
+      #   run: |
+      #     cd server
+      #     pm2 restart my-blog

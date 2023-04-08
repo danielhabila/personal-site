@@ -8,7 +8,6 @@ import WidgetNewsletter from "../partials/WidgetNewsletter";
 import Footer from "../partials/Footer";
 import PodcastsList from "../partials/PodcastsList";
 import Subscribe from "../partials/Subscribe";
-import useFetch from "../hooks/useFetch";
 
 function Home() {
   return (

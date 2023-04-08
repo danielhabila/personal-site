@@ -30,34 +30,6 @@ function PodPlayer() {
     queryFn: getPodcastPost,
   });
 
-  if (data) console.log(data);
-
-  // const [data, setData] = useState(null);
-  // const [loading, setLoading] = useState(false);
-  // const [error, setError] = useState(false);
-
-  // useEffect(() => {
-  //   const getPodcast = async (slug) => {
-  //     try {
-  //       setLoading(true);
-  //       const response = await axios.get(
-  //         `https://youtube.googleapis.com/youtube/v3/videos?part=snippet&id=${slug}&key=AIzaSyCpuml4V5O3y5NysRDOBiXVFbPaMDLRWhw`
-  //       );
-
-  //       const data = await response.data.items[0];
-  //       setData(data);
-
-  //       console.log(data);
-  //     } catch (error) {
-  //       console.log(error);
-  //       setError(error);
-  //     }
-  //     setLoading(false);
-  //   };
-
-  //   getPodcast(slug);
-  // }, []);
-
   return (
     <div className="max-w-7xl mx-auto">
       <div className="min-h-screen flex">

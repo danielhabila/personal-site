@@ -1,23 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
-import fetchBlogs from "../hooks/fetchBlogs";
 
 function ArticleItem(props) {
   const navigate = useNavigate();
-  const { data, loading, error } = fetchBlogs();
 
   const fetched = props.excerpt.__html.html;
   const excerpt = fetched.split(" ").slice(0, 30).join(" ") + " ...";
-
-  // useEffect(() => {
-  //   console.log(props.excerpt.__html.html);
-  // }, [props]);
-
-  useEffect(() => {
-    if (data) {
-      console.log(data);
-    }
-  }, [data]);
 
   return (
     <article
