@@ -1,29 +1,29 @@
 import express, { json } from "express";
 import * as dotenv from "dotenv";
 import { GraphQLClient, gql } from "graphql-request";
-import Redis from "redis";
+// import Redis from "redis";
 
 const router = express.Router();
 dotenv.config();
-const redis = Redis.createClient({
-  port: "6379",
-  host: "127.0.0.1",
-});
-await redis.connect();
-// if in production enter the url of your production instance of redis "Redis.createClient({url:})"
-const CACHE_EXPIRATION = 3600; // 1 hour
+// const redis = Redis.createClient({
+//   port: "6379",
+//   host: "127.0.0.1",
+// });
+// await redis.connect();
+// // if in production enter the url of your production instance of redis "Redis.createClient({url:})"
+// const CACHE_EXPIRATION = 3600; // 1 hour
 
 router.get("/fetchBlogs", async (req, res) => {
   try {
-    // check whether we have data in redis cache
-    let cacheEntry = await redis.get("bloglist");
+    // // check whether we have data in redis cache
+    // let cacheEntry = await redis.get("bloglist");
 
-    // if we have a cache hit
-    if (cacheEntry && cacheEntry != null) {
-      console.log("source: Cache");
-      cacheEntry = JSON.parse(cacheEntry);
-      return res.json(cacheEntry);
-    }
+    // // if we have a cache hit
+    // if (cacheEntry && cacheEntry != null) {
+    //   console.log("source: Cache");
+    //   cacheEntry = JSON.parse(cacheEntry);
+    //   return res.json(cacheEntry);
+    // }
 
     const graphcms = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
 
@@ -49,7 +49,7 @@ router.get("/fetchBlogs", async (req, res) => {
     console.log(results);
 
     console.log("source: API");
-    redis.setEx("bloglist", CACHE_EXPIRATION, JSON.stringify(results));
+    // redis.setEx("bloglist", CACHE_EXPIRATION, JSON.stringify(results));
     res.json(results);
   } catch (error) {
     console.log(error);
@@ -61,15 +61,15 @@ router.get("/single-post/:slug", async (req, res) => {
   try {
     const { slug } = req.params;
 
-    // check whether we have data in redis cache
-    let cacheEntry = await redis.get(`slug:${slug}`);
+    // // check whether we have data in redis cache
+    // let cacheEntry = await redis.get(`slug:${slug}`);
 
-    // if we have a cache hit
-    if (cacheEntry && cacheEntry != null) {
-      console.log("source: Cache");
-      cacheEntry = JSON.parse(cacheEntry);
-      return res.json(cacheEntry);
-    }
+    // // if we have a cache hit
+    // if (cacheEntry && cacheEntry != null) {
+    //   console.log("source: Cache");
+    //   cacheEntry = JSON.parse(cacheEntry);
+    //   return res.json(cacheEntry);
+    // }
 
     //else we have a cache miss and we call our API
     const graphcms = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
@@ -93,7 +93,7 @@ router.get("/single-post/:slug", async (req, res) => {
     const results = await graphcms.request(query, { slug });
     console.log("source: API");
 
-    redis.setEx(`slug:${slug}`, CACHE_EXPIRATION, JSON.stringify(results));
+    // redis.setEx(`slug:${slug}`, CACHE_EXPIRATION, JSON.stringify(results));
     res.json(results);
   } catch (error) {
     console.log(error);
