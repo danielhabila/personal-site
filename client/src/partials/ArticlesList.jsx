@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 function ArticlesList() {
   const getPosts = async () => {
     try {
-      const response = await axios.get("/api/fetchBlogs");
+      const response = await axios.get("/api/v1/fetchBlogs");
       return response.data;
     } catch (error) {
       console.log(error);

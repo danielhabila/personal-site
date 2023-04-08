@@ -8,8 +8,8 @@ const port = 4040;
 dotenv.config();
 const app = express();
 app.use(cors());
-app.use("/api", blogRoute);
-app.use("/api", podcastRoutes);
+app.use("/api/v1", blogRoute);
+app.use("/api/v2", podcastRoutes);
 
 app.get("/", (req, res) => {
   res.send("hello world");

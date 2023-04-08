@@ -17,7 +17,7 @@ function Post() {
 
   const getSinglePost = async () => {
     try {
-      const response = await axios.get(`/api/single-post/${slug}`);
+      const response = await axios.get(`/api/v1/single-post/${slug}`);
       return response.data.posts[0];
     } catch (error) {
       console.log(error);
