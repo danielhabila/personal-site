@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import SideNavigation from "../partials/SideNavigation";
 import BottomNavigation from "../partials/BottomNavigation";
@@ -8,6 +8,7 @@ import WidgetNewsletter from "../partials/WidgetNewsletter";
 import Footer from "../partials/Footer";
 import PodcastsList from "../partials/PodcastsList";
 import Subscribe from "../partials/Subscribe";
+import useFetch from "../hooks/useFetch";
 
 function Home() {
   return (

@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link, useParams } from "react-router-dom";
-import { request, gql } from "graphql-request";
 import SideNavigation from "../partials/SideNavigation";
 import Header from "../partials/Header";
 import WidgetNewsletter from "../partials/WidgetNewsletter";
@@ -8,54 +7,35 @@ import WidgetSponsor from "../partials/WidgetSponsor";
 import WidgetPosts from "../partials/WidgetPosts";
 import Footer from "../partials/Footer";
 import BottomNavigation from "../partials/BottomNavigation";
-
+import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 import parse from "html-react-parser";
 
 function Post() {
   const { slug } = useParams();
-  console.log(slug);
+  // console.log(slug);
 
-  const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const getSinglePost = async () => {
+    try {
+      const response = await axios.get(`/api/single-post/${slug}`);
+      return response.data.posts[0];
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-  const graphqlAPI = import.meta.env.VITE_APP_HYGRAPH_ENDPOINT;
+  const { data, isLoading, error, isFetching } = useQuery(
+    {
+      queryKey: ["singlePosts"],
+      queryFn: getSinglePost,
+    }
+    // { staleTime: 3600000, refetchOnmount: false }
+  );
 
-  useEffect(() => {
-    const getPost = async (slug) => {
-      try {
-        setLoading(true);
-        const query = gql`
-          query BlogPosts($slug: String!) {
-            posts(where: { slug: $slug }) {
-              id
-              postDate
-              slug
-              title
-              content {
-                html
-              }
-              coverPhoto {
-                url
-              }
-            }
-          }
-        `;
-        // Making request
-        const variables = { slug };
-        const results = await request(graphqlAPI, query, variables);
-        setData(results.posts[0]);
-        console.log(results.posts[0].content.html);
-      } catch (error) {
-        setError(error);
-      }
-      setLoading(false);
-    };
+  // console.log(data);
+  // ----------------------------------------------------
 
-    getPost(slug);
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     return <div>Loading...</div>;
   }
 
@@ -168,6 +148,7 @@ function Post() {
                           </li>
                         </ul>
                       </div>
+                      {/* Title */}
                       <h1 className="h1 font-aspekta mb-4">
                         {data && data.title}
                       </h1>
