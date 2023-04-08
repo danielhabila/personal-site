@@ -4,9 +4,9 @@ import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import axios from "axios";
 
-if (process.env.NODE_ENV === "development") {
-  axios.defaults.baseURL = "http://localhost:4040";
-}
+// if (process.env.NODE_ENV === "development") {
+//   axios.defaults.baseURL = "http://localhost:4040";
+// }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
