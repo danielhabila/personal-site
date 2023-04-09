@@ -6,6 +6,8 @@ import axios from "axios";
 
 if (process.env.NODE_ENV === "development") {
   axios.defaults.baseURL = "http://localhost:4040";
+} else {
+  axios.defaults.baseURL = "https://www.danielhabila.com";
 }
 
 ReactDOM.createRoot(document.getElementById("root")).render(
