@@ -30,7 +30,7 @@ router.get("/podcast-list", async (req, res) => {
 
     console.log("source: API");
     // redis.setEx("podcastlist", CACHE_EXPIRATION, JSON.stringify(results.data));
-    res.json(results.data);
+    res.send(results.data);
   } catch (error) {
     console.log(error);
   }
@@ -58,7 +58,7 @@ router.get("/podcast-post/:slug", async (req, res) => {
     //   CACHE_EXPIRATION,
     //   JSON.stringify(results.data)
     // );
-    res.json(results.data);
+    res.send(results.data);
   } catch (error) {
     console.log(error);
   }

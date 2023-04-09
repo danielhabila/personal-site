@@ -48,7 +48,7 @@ router.get("/fetchBlogs", async (req, res) => {
 
     console.log("source: API");
     // redis.setEx("bloglist", CACHE_EXPIRATION, JSON.stringify(results));
-    res.json(results);
+    res.send(results);
   } catch (error) {
     console.log(error);
   }
@@ -59,14 +59,14 @@ router.get("/single-post/:slug", async (req, res) => {
     const { slug } = req.params;
 
     // check whether we have data in redis cache
-    let cacheEntry = await redis.get(`slug:${slug}`);
+    // let cacheEntry = await redis.get(`slug:${slug}`);
 
-    // if we have a cache hit
-    if (cacheEntry && cacheEntry != null) {
-      console.log("source: Cache");
-      cacheEntry = JSON.parse(cacheEntry);
-      return res.json(cacheEntry);
-    }
+    // // if we have a cache hit
+    // if (cacheEntry && cacheEntry != null) {
+    //   console.log("source: Cache");
+    //   cacheEntry = JSON.parse(cacheEntry);
+    //   return res.json(cacheEntry);
+    // }
 
     //else we have a cache miss and we call our API
     const query = gql`
@@ -90,8 +90,8 @@ router.get("/single-post/:slug", async (req, res) => {
     const results = await request(graphqlAPI, query, { slug });
     console.log("source: API");
 
-    redis.setEx(`slug:${slug}`, CACHE_EXPIRATION, JSON.stringify(results));
-    res.json(results);
+    // redis.setEx(`slug:${slug}`, CACHE_EXPIRATION, JSON.stringify(results));
+    res.send(results);
   } catch (error) {
     console.log(error);
   }
