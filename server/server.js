@@ -7,6 +7,8 @@ import podcastRoutes from "./routes/podcastRoutes.js";
 const port = 4040;
 dotenv.config();
 const app = express();
+app.use(express.json());
+
 app.use(cors());
 app.use("/api/v1", blogRoute);
 app.use("/api/v2", podcastRoutes);
