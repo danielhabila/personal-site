@@ -1,29 +1,29 @@
 import express, { json } from "express";
 import * as dotenv from "dotenv";
 import { request, gql } from "graphql-request";
-import Redis from "redis";
+// import Redis from "redis";
 
 const router = express.Router();
 dotenv.config();
-const redis = Redis.createClient({
-  port: "6379",
-  host: "127.0.0.1",
-});
-await redis.connect();
+// const redis = Redis.createClient({
+//   port: "6379",
+//   host: "127.0.0.1",
+// });
+// await redis.connect();
 // if in production enter the url of your production instance of redis "Redis.createClient({url:})"
-const CACHE_EXPIRATION = 3600; // 1 hour
+// const CACHE_EXPIRATION = 3600; // 1 hour
 
 router.get("/fetchBlogs", async (req, res) => {
   try {
     // check whether we have data in redis cache
-    let cacheEntry = await redis.get("bloglist");
+    // let cacheEntry = await redis.get("bloglist");
 
-    // if we have a cache hit
-    if (cacheEntry && cacheEntry != null) {
-      console.log("source: Cache");
-      cacheEntry = JSON.parse(cacheEntry);
-      return res.json(cacheEntry);
-    }
+    // // if we have a cache hit
+    // if (cacheEntry && cacheEntry != null) {
+    //   console.log("source: Cache");
+    //   cacheEntry = JSON.parse(cacheEntry);
+    //   return res.json(cacheEntry);
+    // }
     const query = gql`
       query Posts {
         posts {
@@ -44,7 +44,7 @@ router.get("/fetchBlogs", async (req, res) => {
     const results = await request(graphqlAPI, query);
 
     console.log("source: API");
-    redis.setEx("bloglist", CACHE_EXPIRATION, JSON.stringify(results));
+    // redis.setEx("bloglist", CACHE_EXPIRATION, JSON.stringify(results));
     res.json(results);
   } catch (error) {
     console.log(error);
