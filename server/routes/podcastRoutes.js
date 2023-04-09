@@ -1,10 +1,13 @@
 import express from "express";
 import * as dotenv from "dotenv";
 import axios from "axios";
+import cors from "cors";
 // import Redis from "redis";
 
 const router = express.Router();
 dotenv.config();
+const app = express();
+app.use(cors());
 // const redis = Redis.createClient({
 //   port: 6379,
 //   host: "localhost",
