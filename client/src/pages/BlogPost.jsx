@@ -149,7 +149,7 @@ function Post() {
                         </ul>
                       </div>
                       {/* Title */}
-                      <h1 className="h1 font-aspekta mb-4">
+                      <h1 className="h1 font-aspekta my-8">
                         {data && data.title}
                       </h1>
                     </header>
@@ -157,7 +157,6 @@ function Post() {
                     <div>
                       {/* {data && (
                         <div>
-                          <img src={data.coverPhoto.url} alt={data.title} />
                           <div
                             dangerouslySetInnerHTML={{
                               __html: data && data.content.html,
@@ -165,6 +164,7 @@ function Post() {
                           />
                         </div>
                       )} */}
+                      {/* <img src={data.coverPhoto.url} alt={data.title} /> */}
                       <div className="content ">
                         {data && parse(data.content.html)}
                       </div>

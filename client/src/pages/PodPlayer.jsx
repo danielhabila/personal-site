@@ -6,7 +6,6 @@ import WidgetNewsletter from "../partials/WidgetNewsletter";
 import WidgetSubscribe from "../partials/WidgetSubscribe";
 import Footer from "../partials/Footer";
 import BottomNavigation from "../partials/BottomNavigation";
-import AudioPlayer from "../partials/AudioPlayer";
 import YoutubeEmbed from "../partials/YoutubeEmbed";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
@@ -18,7 +17,7 @@ function PodPlayer() {
 
   const getPodcastPost = async () => {
     try {
-      const response = await axios.get(`/api/podcast-post/${slug}`);
+      const response = await axios.get(`/api/v2/podcast-post/${slug}`);
       return response.data.items[0].snippet;
     } catch (error) {
       console.log(error);
@@ -129,32 +128,29 @@ function PodPlayer() {
                   </div>
 
                   {/*  Title */}
-                  <h1 className="h1 font-aspekta mb-4">{data && data.title}</h1>
+                  <h1 className="h1 font-aspekta my-10">
+                    {data && data.title}
+                  </h1>
                   {/*  Page sections */}
                   <YoutubeEmbed embedId={slug} />
 
-                  {/* <AudioPlayer ref={audio} /> */}
-
                   {/* Content */}
                   <section>
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6">
-                      <div className="pb-12 md:pb-20">
-                        <div className="md:flex md:justify-between md:space-x-14">
-                          {/* Main content */}
-                          <div className="md:grow space-y-8 mb-12 md:mb-0">
-                            {/* Notes */}
-                            <div>
-                              <h2 className="text-3xl md:text-4xl font-hkgrotesk font-extrabold mb-4">
-                                Show Notes
-                              </h2>
-                              <p className="text-slate-500 dark:text-slate-400">
-                                {data && data.description}
+                    <h2 className="text-3xl md:text-4xl font-hkgrotesk font-extrabold mt-16 mb-6">
+                      Show Notes
+                    </h2>
+                    <div className="max-w-6xl mx-auto">
+                      {data && (
+                        <div className="text-slate-500 dark:text-slate-400">
+                          {data.description
+                            .split("\n")
+                            .map((paragraph, index) => (
+                              <p key={index} className="mb-2">
+                                {paragraph}
                               </p>
-                            </div>
-                            {/* Topics */}
-                          </div>
+                            ))}
                         </div>
-                      </div>
+                      )}
                     </div>
                   </section>
 

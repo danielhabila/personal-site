@@ -7,7 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 function PodcastsList() {
   const getPodcastList = async () => {
     try {
-      const response = await axios.get(`/api/podcast-list`);
+      const response = await axios.get(`/api/v2/podcast-list`);
       return response.data;
     } catch (error) {
       console.log(error);
@@ -48,10 +48,8 @@ function PodcastsList() {
                     title={item.snippet.title}
                     slug={item.id.videoId}
                     date={date}
-                    episode={2}
-                    // category={item.category}
+                    // episode={2}
                     excerpt={item.snippet.description}
-                    // selectedCategory={category}
                   />
                 );
               })}

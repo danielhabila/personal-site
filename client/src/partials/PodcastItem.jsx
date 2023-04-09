@@ -22,12 +22,13 @@ function PodcastItem(props) {
           <h3 className="font-hkgrotesk font-extrabold text-lg mb-1">
             {props.title}
           </h3>
-          <div className="font-hkgrotesk font-medium text-xs text-slate-500 mb-1">
-            {props.date} <span className="text-slate-300">·</span> Episode{" "}
-            {props.episode}
-          </div>
+
           <div className="text-sm text-slate-500 dark:text-slate-400">
             {props.excerpt}
+          </div>
+          <div className="font-hkgrotesk font-medium text-[0.7rem] text-slate-500 my-1">
+            <span className="text-sky-500">—</span> {props.date}
+            {/* Episode{" "} {props.episode} */}
           </div>
         </div>
       </div>

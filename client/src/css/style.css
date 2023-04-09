@@ -71,3 +71,14 @@
 .content pre {
   margin: 1rem 0;
 }
+
+
+.content p, ol, ul{
+  --tw-text-opacity: 1;
+    color: rgb(148 163 184 / var(--tw-text-opacity));
+}
+
+/* .content  p, ol, ul{
+  --tw-text-opacity: 1;
+color: rgb(100 116 139 / var(--tw-text-opacity));
+} */
